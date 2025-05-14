@@ -1,1 +1,66 @@
-<p>login works!</p>
+<div
+    class="flex items-center justify-center min-h-screen bg-gradient-to-b from-[#002850] via-[#022c55] to-[#023c75] text-white px-4">
+    <div class="bg-white text-black rounded-2xl shadow-2xl w-full max-w-5xl flex flex-col md:flex-row overflow-hidden">
+
+        <div class="flex-1 bg-[#011d3a] text-white flex items-center justify-center p-10">
+            <div class="text-center">
+                <div class="text-6xl font-extrabold">TODO</div>
+                <div class="text-2xl mt-2 font-medium tracking-wide">Angular</div>
+            </div>
+        </div>
+
+        <div class="flex-1 bg-white flex flex-col items-center justify-center p-10 gap-4">
+            <form class="w-full flex flex-col gap-4" (ngSubmit)="login()" #loginForm="ngForm">
+                <div class="text-3xl font-bold text-center text-gray-800">Sign In</div>
+                <div class="w-full">
+                    <label
+                        class="flex items-center gap-3 border border-gray-300 rounded-lg px-4 py-2 focus-within:ring-2 ring-blue-500">
+                        <svg class="h-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5.121 17.804A9.003 9.003 0 0112 15c2.21 0 4.209.803 5.879 2.121M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <input class="w-full outline-none text-sm" type="text" id="oa_username" name="oa_username"
+                            [(ngModel)]="username" placeholder="Enter your username" required />
+                    </label>
+                    <p *ngIf="formErrorMessage" class="text-red-500 text-xs mt-1">{{ formErrorMessage }}</p>
+                </div>
+
+                <div class="w-full">
+                    <label
+                        class="flex items-center gap-3 border border-gray-300 rounded-lg px-4 py-2 focus-within:ring-2 ring-blue-500">
+                        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                                stroke="black">
+                                <path
+                                    d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z">
+                                </path>
+                                <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                            </g>
+                        </svg>
+                        <input type="password" id="password" name="password" [(ngModel)]="password"
+                            class="w-full outline-none text-sm" placeholder="Enter your password" required />
+                    </label>
+                    <p *ngIf="formErrorMessage" class="text-red-500 text-xs mt-1">{{ formErrorMessage }}</p>
+                </div>
+
+                <div *ngIf="isError" class="text-red-500 text-center text-sm">
+                    {{ loginErrorMessage }}
+                </div>
+
+                <div class="w-full">
+                    <button disabled *ngIf="isLoading"
+                        class="btn btn-primary w-full flex justify-center items-center gap-2">
+                        <span class="loading loading-spinner"></span> Loading
+                    </button>
+
+                    <button *ngIf="!isLoading" type="submit" [disabled]="!username || !password"
+                        class="w-full btn btn-primary bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg mt-2 transition">
+                        Login
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

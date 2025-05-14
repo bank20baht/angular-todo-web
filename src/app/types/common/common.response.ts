@@ -21,3 +21,8 @@ export type SuccessHeaderResponse = {
 	code: string;
 	desc: string;
 };
+
+export type ErrorHeaderResponse = {
+	code: string;
+	desc: string;
+}
