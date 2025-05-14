@@ -1,5 +1,5 @@
 import { LoginRequestType, LoginResponseType, ReFreshTokenRequestType, ReFreshTokenResponseType } from '@/types';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, map } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
 import { Router } from '@angular/router';
@@ -9,15 +9,11 @@ import { Router } from '@angular/router';
 })
 export class AuthenticationService {
 	private readonly baseUrl: string = import.meta.env.NG_APP_IDENTITY_URL;
-	private readonly _isLogin = new BehaviorSubject<boolean>(false);
 	private userInfo: LoginResponseType | null = null;
-  
-	constructor(
-		private readonly http: HttpClient,
-		private readonly router: Router,
-	) {
 
-	}
+  router = inject(Router);
+  http = inject(HttpClient);
+
 
 	public refreshAccessToken() {
 		if (this.userInfo) {
@@ -32,8 +28,8 @@ export class AuthenticationService {
 				)
 				.pipe(
 					map((response: ReFreshTokenResponseType) => {
-						this.userInfo?.access_token = response.access_token;
-            this.userInfo?.refresh_token = response.refresh_token;
+            this.userInfo!.access_token = response.access_token;
+            this.userInfo!.refresh_token = response.refresh_token;
 						return response;
 					}),
 				);
