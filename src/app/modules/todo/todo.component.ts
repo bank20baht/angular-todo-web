@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-todo',
@@ -7,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrl: './todo.component.css'
 })
 export class TodoComponent {
+
+  AuthenticationService = inject(AuthenticationService);
+
+  logout() {
+    this.AuthenticationService.logout();
+  }
 
 }

@@ -33,17 +33,8 @@ export class LoginComponent {
 		}).subscribe({
 			next: (response) => {
 				this.isLoading = false;
-				this.isError = false;
-				if (
-					this.AuthenticationService.userValue?.roles === "CORS" ||
-					this.AuthenticationService.userValue?.roles === "CORB"
-				) {
-					this.router.navigate(["/correspondent-bank/management/table-a"]);
-				} else if (this.AuthenticationService.userValue?.roles === "BOTL") {
-					this.router.navigate(["/accumulate-amount/insert"]);
-				} else {
-					this.router.navigate(["/accumulate-amount"]);
-				}
+				this.isError = false; 
+				this.router.navigate(["/"]);
 			},
 			error: (error: HttpErrorResponse) => {
 				this.isLoading = false;

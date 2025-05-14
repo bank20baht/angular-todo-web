@@ -2,7 +2,7 @@ import { CanActivateFn, Router } from "@angular/router";
 import { inject } from "@angular/core";
 import { AuthenticationService } from "@/services";
 
-export const CorbApproveGuard: CanActivateFn = (route, state) => {
+export const TodoGuard: CanActivateFn = (route, state) => {
 	const router = inject(Router);
 	const authenticationService = inject(AuthenticationService);
 
