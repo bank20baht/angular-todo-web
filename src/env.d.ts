@@ -3,9 +3,7 @@ declare interface Env {
 	readonly NODE_ENV: string;
 	// Replace the following with your own environment variables.
 	// Example: NGX_VERSION: string;
-	readonly NG_APP_CORS_BANK_URL: string;
 	readonly NG_APP_IDENTITY_URL: string;
-	readonly NG_APP_Purpose_Code_URL: string;
 }
 
 // Choose how to access the environment variables.
