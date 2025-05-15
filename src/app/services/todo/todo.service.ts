@@ -1,17 +1,17 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { AddTodoRequestBody, TodoResponse } from '@/types';
+import { TodoType } from '@/types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
 	private readonly baseUrl: string = import.meta.env.NG_APP_IDENTITY_URL;
-	private readonly endpoint = "v1/table-a";
+	private readonly endpoint = "v1/todo";
 	http = inject(HttpClient);
   
-  addTodo(body: AddTodoRequestBody[]) : Observable<string>
+  addTodo(body: TodoType[]) : Observable<string>
   {
     return this.http.post(`${this.baseUrl}/${this.endpoint}`, body).pipe(
       map(() => {
@@ -20,8 +20,8 @@ export class TodoService {
     );
   }
 
-  getTodo() : Observable<TodoResponse[]>
+  getTodo() : Observable<TodoType[]>
   {
-    return this.http.get<TodoResponse[]>(`${this.baseUrl}/${this.endpoint}`);
+    return this.http.get<TodoType[]>(`${this.baseUrl}/${this.endpoint}`);
   }
 }

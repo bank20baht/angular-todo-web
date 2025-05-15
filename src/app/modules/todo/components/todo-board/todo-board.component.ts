@@ -1,5 +1,5 @@
 import { TodoService } from '@/services';
-import { AddTodoRequestBody } from '@/types';
+import { TodoType } from '@/types';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './todo-board.component.css'
 })
 export class TodoBoardComponent {
-  listTodo: AddTodoRequestBody[] = [];
+  listTodo: TodoType[] = [];
   todoService = inject(TodoService);
 
   todoStatus = [
@@ -20,11 +20,38 @@ export class TodoBoardComponent {
     { name: 'COMPLETE', value: 'COMPLETE' },]
 
   handleClickAddButton() {
-    const newTodo: AddTodoRequestBody = {
+    const newTodo: TodoType = {
       title: '',
       status: 'PENDING',
   }
     this.listTodo.push(newTodo);    
+  }
+
+  submitTodoList() {
+    this.todoService.addTodo(this.listTodo).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+    this.getTodoList();
+  }
+
+  getTodoList() {
+    this.todoService.getTodo().subscribe({
+      next: (res) => {
+        this.listTodo = [...res]; 
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
+
+  ngOnInit() {
+    this.getTodoList();
   }
 
   removeTodo(index: number) {
