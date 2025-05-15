@@ -1,7 +1,7 @@
 import { TodoService } from '@/services';
 import { TodoType } from '@/types';
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -11,39 +11,44 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './todo-board.component.css'
 })
 export class TodoBoardComponent {
-  listTodo: TodoType[] = [];
-  todoService = inject(TodoService);
+  private todoService = inject(TodoService);
 
-  todoStatus = [
+  listTodo = signal<TodoType[]>([]);
+
+  readonly todoStatus = [
     { name: 'PENDING', value: 'PENDING' },
     { name: 'DOING', value: 'DOING' },
-    { name: 'COMPLETE', value: 'COMPLETE' },]
+    { name: 'COMPLETE', value: 'COMPLETE' },
+  ];
+
+  constructor() {
+    this.getTodoList();
+  }
 
   handleClickAddButton() {
     const newTodo: TodoType = {
       title: '',
       status: 'PENDING',
-  }
-    this.listTodo.push(newTodo);    
+    };
+    this.listTodo.update(todos => [...todos, newTodo]);
   }
 
   submitTodoList() {
-    this.todoService.addTodo(this.listTodo).subscribe({
+    this.todoService.addTodo(this.listTodo()).subscribe({
       next: (res) => {
         console.log(res);
+        this.getTodoList(); 
       },
       error: (err) => {
         console.error(err);
       }
     });
-    this.getTodoList();
   }
 
   getTodoList() {
     this.todoService.getTodo().subscribe({
       next: (res) => {
-        this.listTodo = []
-        this.listTodo = [...res]; 
+        this.listTodo.set(res);
       },
       error: (err) => {
         console.error(err);
@@ -51,13 +56,8 @@ export class TodoBoardComponent {
     });
   }
 
-  ngOnInit() {
-    this.getTodoList();
-  }
-
   removeTodo(index: number) {
-    this.listTodo.splice(index, 1);
+    this.listTodo.update(todos => todos.filter((_, i) => i !== index));
   }
-
 
 }

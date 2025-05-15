@@ -11,10 +11,5 @@ import { TodoBoardComponent } from './components';
 })
 export class TodoComponent {
 
-  AuthenticationService = inject(AuthenticationService);
-
-  logout() {
-    this.AuthenticationService.logout();
-  }
 
 }
