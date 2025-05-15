@@ -1,0 +1,10 @@
+<div role="tablist" class="tabs tabs-lift bg-base-300">
+    <a *ngFor="let tab of tabs" role="tab" class="tab whitespace-nowrap" (click)="handleChangeTab(tab.path)"
+        [ngClass]="{ 'tab-active': isActiveTab(tab.path) }">
+        {{ tab.name }}
+    </a>
+</div>
+
+<div class=" bg-base-100 rounded-b-md rounded-t-xs border-base-200 border  ">
+    <ng-content></ng-content>
+</div>
