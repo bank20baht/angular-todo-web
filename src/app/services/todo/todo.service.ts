@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { TodoType } from '@/types';
+import { SuccessResponseWrap, TodoType } from '@/types';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,10 @@ export class TodoService {
 
   getTodo() : Observable<TodoType[]>
   {
-    return this.http.get<TodoType[]>(`${this.baseUrl}/${this.endpoint}`);
+    return this.http.get<SuccessResponseWrap<TodoType[]>>(`${this.baseUrl}/${this.endpoint}`).pipe(
+      map((res) => {
+        return res.result;
+      })
+    );
   }
 }

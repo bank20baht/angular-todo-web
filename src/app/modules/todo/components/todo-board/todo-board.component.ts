@@ -42,6 +42,7 @@ export class TodoBoardComponent {
   getTodoList() {
     this.todoService.getTodo().subscribe({
       next: (res) => {
+        this.listTodo = []
         this.listTodo = [...res]; 
       },
       error: (err) => {
