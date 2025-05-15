@@ -1,18 +1,18 @@
 import { Routes } from '@angular/router';
 import { AdminComponent, LoginComponent, TodoComponent } from './modules';
 import { PageNotFoundComponent } from './shared';
-import { TodoGuard } from './guard';
+import { CorbApproveGuard, CorbManagementGuard } from './guard';
 
 export const routes: Routes = [
     {
 		path: "todo",
 		component: TodoComponent,
-        canActivate: [TodoGuard],
+        canActivate: [CorbManagementGuard],
 	},
 	{
 		path: "admin",
 		component: AdminComponent,
-        canActivate: [TodoGuard],
+        canActivate: [CorbApproveGuard],
 	},
 	{
 		path: "login",
