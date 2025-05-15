@@ -34,7 +34,7 @@ export class LoginComponent {
 			next: (response) => {
 				this.isLoading = false;
 				this.isError = false; 
-				this.router.navigate(["/"]);
+				this.router.navigate(["/todo"]);
 			},
 			error: (error: HttpErrorResponse) => {
 				this.isLoading = false;
