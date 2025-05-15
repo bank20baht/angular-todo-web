@@ -1,0 +1,36 @@
+<div class="flex flex-row items-center justify-between p-2">
+    <div></div>
+    <div class="text-center text-2xl font-bold">Todo List</div>
+    <button (click)="submitTodoList()" class="btn btn-secondary">
+        Submit
+    </button>
+</div>
+
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-5">
+    <div *ngFor="let todo of listTodo; index as i"
+        class="flex flex-col border border-gray-300 rounded-2xl p-4 min-h-[180px]">
+        <div class="flex flex-row items-center justify-between mb-2">
+            <div></div>
+            <button (click)="removeTodo(i)" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition">
+                X
+            </button>
+        </div>
+
+        <input [(ngModel)]="todo.title" placeholder="Enter title"
+            class="mb-2 border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring focus:border-blue-300" />
+
+        <select [(ngModel)]="todo.status"
+            class="border border-gray-300 rounded px-3 py-1 focus:outline-none focus:ring focus:border-blue-300">
+            <option *ngFor="let status of todoStatus" [value]="status.value">
+                {{ status.name }}
+            </option>
+        </select>
+    </div>
+
+    <div class="flex items-center justify-center  min-h-[180px]">
+        <button (click)="handleClickAddButton()" class="btn btn-primary h-full w-full">
+            + Add Todo
+        </button>
+    </div>
+</div>
