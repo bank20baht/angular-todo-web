@@ -6,12 +6,12 @@ import { TodoGuard } from './guard';
 export const routes: Routes = [
     {
 		path: "todo",
-		component: AdminComponent,
+		component: TodoComponent,
         canActivate: [TodoGuard],
 	},
 	{
 		path: "admin",
-		component: TodoComponent,
+		component: AdminComponent,
         canActivate: [TodoGuard],
 	},
 	{
